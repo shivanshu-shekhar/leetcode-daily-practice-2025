@@ -1,0 +1,110 @@
+// class Solution {
+//     public int[] minOperations(String boxes) {
+//        int n = boxes.length(); 
+//        int[] operationArray = new int[n];
+        
+//         if(n==1){
+//             operationArray[0]=0;
+//             return operationArray;
+//         }
+
+//         else if(n==2){
+//             if (boxes.equals("00")){
+//                 operationArray=new int[]{0,0};
+//             }
+//             else if (boxes.equals("10")){
+//                 operationArray=new int[]{0,1};
+//             }
+//             else if (boxes.equals("01")){
+//                 operationArray=new int[]{1,0};
+//             }
+//             else if (boxes.equals("11")){
+//                 operationArray=new int[]{1,1};
+//             }
+//             return operationArray;
+//         }
+
+//         else if(n>=3){
+//             for(int i =0; i<n; i++){
+//                 operationArray[i]=0;
+                
+//                 if(i == 0){
+//                     for(int j=i+1; j<n; j++){
+//                         if(boxes.charAt(j)=='1'){
+//                           operationArray[i]+=j;
+//                         }
+//                         else{
+//                             continue;
+//                         }
+//                     }
+//                 }
+
+//                 else if(i == n-1){
+//                     for(int j=i-1; j>=0; j--){
+//                         if(boxes.charAt(j)=='1'){
+//                           operationArray[i]+= i-j;
+//                         }
+//                         else{
+//                             continue;
+//                         }
+//                     }
+//                 }
+
+//                 else{
+//                     for(int j=i+1; j<n; j++){
+//                         if(boxes.charAt(j)=='1'){
+//                           operationArray[i]+=j-i;
+//                         }
+//                         else{
+//                             continue;
+//                         }
+//                     }
+
+//                     for(int k=i-1; k>=0; k--){
+//                         if(boxes.charAt(k)=='1'){
+//                           operationArray[i]+= i-k;
+//                         }
+//                         else{
+//                             continue;
+//                         }
+//                     }
+
+//                 }
+//             }
+//         }
+//         return operationArray;
+//     }
+// }
+// my solution better then 36.24% run time 122ms
+
+class Solution {
+    public int[] minOperations(String boxes) {
+        int n = boxes.length();
+        int[] result = new int[n];
+        
+        // Left to Right pass (count operations from left side)
+        int operations = 0, balls = 0;
+        for (int i = 0; i < n; i++) {
+            result[i] = operations;
+            if (boxes.charAt(i) == '1') {
+                balls++;
+            }
+            operations += balls;
+        }
+        
+        // Right to Left pass (count operations from right side)
+        operations = 0;
+        balls = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            result[i] += operations;
+            if (boxes.charAt(i) == '1') {
+                balls++;
+            }
+            operations += balls;
+        }
+
+        return result;
+    }
+}
+// better solution Runtime 3ms Beats 94.95%
+

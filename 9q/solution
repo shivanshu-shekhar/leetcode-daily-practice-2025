@@ -1,0 +1,26 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int n= nums.length;
+        int l= n-1;
+        int x=0;
+        int arr[] = new int [n];
+
+        for(int i=0; i<n;i++){
+            if(nums[i] !=0){
+                arr[x]=nums[i];
+                x++;
+            }
+            else{
+                arr[l]=nums[i];
+                l--;
+            }
+        }
+        x=0;l=n-1;
+        for(int i=0; i<n;i++){
+
+            nums[i]=arr[i];
+        }
+        
+    }
+}
+//better soultion 74/74 beats 85%

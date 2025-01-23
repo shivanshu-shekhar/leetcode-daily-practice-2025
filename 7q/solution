@@ -1,0 +1,88 @@
+//import java.util.ArrayList;
+class Solution {
+    public void rotate(int[] nums, int k) {
+        //solution 38/38 but slow
+    //ArrayList<Integer> list = new ArrayList<>();
+    //int n = nums.length;
+    // if(n==2){
+    //     if(k%2!=0){
+    //         int temp = nums[0];
+    //         nums[0]=nums[1];
+    //         nums[1]=temp;
+    //         temp=0;
+    //     }
+      
+    // }
+    // else{
+    //     if(n>k){for(int i=0; i<n-k;i++){
+    //     list.add(nums[i]);
+    // }
+    // for (int i =0; i<k; i++){
+    //     int y = nums.length-1-i;
+    //     if(y>=0){
+    //         int x = nums[y];
+    //         list.add(0,x);
+    //     } 
+    // }
+
+    // for(int i=0; i<list.size(); i++){
+    //     nums[i]=list.get(i);
+        
+    // }}
+
+    // else if(k>=n){
+    //     for(int i=0; i<k; i++){
+    //         list.add(nums[nums.length-1]);
+    //         for(int j =0; j<nums.length-1;j++){
+    //             list.add(nums[j]);
+    //         }
+    //         for(int l = 0;l<list.size();l++){
+    //             nums[l]=list.get(l);
+    //         }
+    //         list.clear();
+
+    //     }
+    // }
+
+    // }
+    //solution 2 37/38 small code but dont work for large values of n and k
+    // for(int i=0;i<n;i++){
+    //     list.add(nums[i]);
+    // }
+    // for(int i=0; i<k;i++){
+    //     list.add(0,list.get(list.size()-1));
+    //     list.remove(list.size()-1);
+    // }
+    // for(int i=0;i<n;i++){
+    //     nums[i]=list.get(i);
+    // }
+    // list.clear();
+    // }
+
+    
+    //optimum solution 
+     int n = nums.length;
+        // Handle cases where k is greater than n
+        k %= n; 
+        
+        // Step 1: Reverse the entire array
+        reverse(nums, 0, n - 1);
+        
+        // Step 2: Reverse the first k elements
+        reverse(nums, 0, k - 1);
+        
+        // Step 3: Reverse the remaining n-k elements
+        reverse(nums, k, n - 1);
+    }
+
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            // Swap elements at start and end
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}

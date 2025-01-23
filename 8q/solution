@@ -1,0 +1,28 @@
+class Solution {
+    public int missingNumber(int[] nums) {
+        int x=0;
+        int n=nums.length;
+        int a[] =new int[n+1];
+        int l= a.length;
+        
+        for(int i=0; i<l;i++){
+            a[i]=-1;
+        }
+
+        for(int i=0; i<n;i++){
+            a[nums[i]]=nums[i];
+        }
+        for(int i=0; i<l;i++){
+            if(a[i] == -1){
+                x=i;
+                break;
+            }
+        }
+        return x;
+    }
+}
+//used instructions like it cant be -1, 1 number missing , distinct, integers and number of elements is n 
+//made an array of size l which is n+1
+// gave all of them -1
+//arranged every number of nums in its respective position in a like 9 in 9 index 0 in 0 index 
+//iterated the a array to check for -1 and return its index optimum solution 122/122 beats 100%

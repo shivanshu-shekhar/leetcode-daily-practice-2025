@@ -1,0 +1,60 @@
+// my solution which is bad since O(n^2)
+class Solution {
+
+    public static int counter(int[] a,int x){
+        int ctr=0;
+        for(int i=0; i<a.length;i++){
+            if(x==a[i]){
+                ctr++;
+            }
+        }
+        return ctr;
+    }
+    public int singleNumber(int[] nums) {
+        int u =0,ctr=0;
+
+        if(nums.length==1){
+            return nums[0];
+        }
+
+        for(int i=0; i<nums.length;i++){
+            ctr = counter(nums,nums[i]);
+            if(ctr==1){
+                u=nums[i];
+                break;
+            }
+        }
+            
+        return u;
+    }
+}
+
+//Better and important solution using xor for unique numbers O(n)
+class Solution {
+    static {
+        for (int i = 0; i < 500; i++) {
+            singleNumber(new int[]{});
+        }
+    }
+    public static int singleNumber(int[] nums) {
+        int res = 0;
+        for(int i : nums)
+            res ^= i;
+        return res;
+    }
+}
+
+//But this solution is unrealistic and too good so better solution according to aukat O(nlogn)
+class Solution {
+    public int singleNumber(int[] nums) {
+       Arrays.sort(nums);
+       if(nums.length == 1)
+       return nums[0];
+
+       for(int i = 0; i < nums.length-1; i+=2){
+        if(nums[i] != nums[i+1])
+         return nums[i];
+       }
+       return nums[nums.length-1];
+    }
+}

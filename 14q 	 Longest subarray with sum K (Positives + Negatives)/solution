@@ -1,0 +1,56 @@
+//my solution O(n^2) bad as always
+class Solution {
+  public int longestSubarray(int[] arr, int k) {
+   int o=0,l=0,ml=0;
+    int n=arr.length;
+       for(int i=0;i<n;i++){
+            
+           for(int j=i;j<n;j++){
+                o+=arr[j];
+              if(o==k){
+                   l=j-i+1;
+               }
+             }
+         if(l>ml){
+               ml=l;
+          }
+           o=0;
+             l=0;
+            
+        }
+         return ml;
+      // code here
+   }
+    }
+
+    //optimized and impoertant way using hash map O(n) make hash map put key as currentSum value as index check if sum exist in hash map whose diffrence ==k to get subarray from middle
+    class Solution {
+     public int longestSubarray(int[] arr, int k) {
+        // Map to store prefix sum and its first occurrence index
+        HashMap<Integer, Integer> prefixSumMap = new HashMap<>();
+        int prefixSum = 0;  // Variable to store the current prefix sum
+        int maxLength = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            prefixSum += arr[i]; // Update the prefix sum
+
+            // Case 1: If prefixSum is equal to k, subarray starts from index 0
+            if (prefixSum == k) {
+                maxLength = i + 1;
+            }
+
+            // Case 2: Check if (prefixSum - k) exists in the map
+            if (prefixSumMap.containsKey(prefixSum - k)) {
+                int subarrayLength = i - prefixSumMap.get(prefixSum - k);
+                maxLength = Math.max(maxLength, subarrayLength);
+            }
+
+            // Store the first occurrence of the prefix sum in the map
+            if (!prefixSumMap.containsKey(prefixSum)) {
+                prefixSumMap.put(prefixSum, i);
+            }
+        }
+
+        return maxLength; // Return the length of the longest subarray
+    }
+}
